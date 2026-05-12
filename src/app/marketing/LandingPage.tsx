@@ -150,7 +150,6 @@ export function LandingPage() {
                     className="absolute -inset-x-1 -bottom-1 z-0 h-3 rounded-md bg-emerald-500/15"
                   />
                 </span>
-                。
               </span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-[1.65] text-zinc-600 sm:max-w-2xl sm:text-lg sm:leading-relaxed">
