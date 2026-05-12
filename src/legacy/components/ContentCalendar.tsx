@@ -83,31 +83,31 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
   };
 
   return (
-    <div className="p-8">
-      <div className="mb-8 flex items-center justify-between">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="mb-2">內容日曆</h1>
           <p className="text-muted-foreground">視覺化管理文章排程與發布時間</p>
         </div>
         <button
           onClick={() => onNavigate('new-article')}
-          className="bg-gradient-to-r from-brand to-brand-deep text-white rounded-xl py-3 px-6 flex items-center gap-2 hover:from-brand-deep hover:to-brand-strong transition-all"
+          className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand to-brand-deep px-6 py-3 text-white transition-all hover:from-brand-deep hover:to-brand-strong"
         >
           <Plus className="w-5 h-5" />
           <span>新增排程文章</span>
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-border p-6 mb-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
+      <div className="mb-6 rounded-2xl border border-border bg-white p-4 sm:p-6">
+        <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-center justify-center gap-4 sm:justify-start">
             <button
               onClick={previousMonth}
               className="p-2 hover:bg-accent rounded-lg transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h2 className="min-w-[200px] text-center">
+            <h2 className="min-w-0 flex-1 text-center text-base font-semibold sm:text-lg">
               {currentDate.getFullYear()} 年 {monthNames[currentDate.getMonth()]}
             </h2>
             <button
@@ -118,7 +118,7 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
             </button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as any)}
@@ -152,7 +152,8 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
         </div>
 
         {view === 'month' ? (
-          <div className="grid grid-cols-7 gap-2">
+          <div className="-mx-1 overflow-x-auto px-1 sm:mx-0 sm:overflow-visible sm:px-0">
+            <div className="grid min-w-[720px] grid-cols-7 gap-2 sm:min-w-0">
             {weekDays.map((day) => (
               <div key={day} className="text-center py-2 text-sm font-medium text-muted-foreground">
                 {day}
@@ -207,6 +208,7 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
               );
             })}
           </div>
+          </div>
         ) : (
           <div className="space-y-2">
             {scheduledArticles
@@ -215,13 +217,13 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
               .map((article) => (
                 <div
                   key={article.id}
-                  className="flex items-center gap-4 p-4 border border-border rounded-xl hover:border-slate-300 transition-colors cursor-pointer"
+                  className="flex flex-col gap-3 rounded-xl border border-border p-4 transition-colors hover:border-slate-300 cursor-pointer sm:flex-row sm:items-center sm:gap-4"
                   onClick={() => setToast({ type: 'info', message: `查看：${article.title}` })}
                 >
                   <div className={`w-12 h-12 rounded-lg ${colorClasses[article.color as keyof typeof colorClasses]} flex items-center justify-center flex-shrink-0`}>
                     <CalendarIcon className="w-6 h-6" />
                   </div>
-                  <div className="flex-1">
+                  <div className="min-w-0 flex-1">
                     <h4 className="mb-1">{article.title}</h4>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <span>
@@ -256,8 +258,8 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        <div className="bg-white rounded-2xl p-6 border border-border">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
               <CalendarIcon className="w-5 h-5 text-brand-link" />
@@ -269,7 +271,7 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 border border-border">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
               <CalendarIcon className="w-5 h-5 text-green-600" />
@@ -281,7 +283,7 @@ export function ContentCalendar({ onNavigate }: ContentCalendarProps) {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 border border-border">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
               <Clock className="w-5 h-5 text-orange-600" />

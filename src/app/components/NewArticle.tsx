@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useBlocker, useNavigate, useSearchParams } from 'react-router';
-import { ChevronRight, Loader2, Check, Copy, Download, Upload, TrendingUp, Target, MessageSquare, Clock } from 'lucide-react';
+import { ChevronRight, Loader2, Check, Copy, Download, TrendingUp, Target, MessageSquare, Clock } from 'lucide-react';
 import { createArticle, getArticle, updateArticle } from '@/lib/articlesRepo';
 import { getSupabase } from '@/lib/supabase';
 import { invokeGenerateDraft, type EdgeGenerateDraftResponse } from '@/lib/edgeLlm';
@@ -482,15 +482,15 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
   ]);
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="mb-2">新增 SEO 文章</h1>
           <p className="text-muted-foreground">透過 AI 分析關鍵字並生成高品質內容</p>
         </div>
 
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
+        <div className="mb-8 -mx-1 overflow-x-auto px-1 sm:mx-0 sm:overflow-visible sm:px-0">
+          <div className="flex min-w-[520px] items-center justify-between sm:min-w-0">
             {steps.map((s, index) => (
               <div key={s.number} className="flex items-center flex-1">
                 <div className="flex items-center gap-3">
@@ -517,7 +517,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-8 border border-border">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6 lg:p-8">
           {step === 1 && (
             <div className="space-y-6">
               <div>
@@ -531,7 +531,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <label className="block mb-2">目標讀者</label>
                   <input
@@ -555,7 +555,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <label className="block mb-2">語氣風格</label>
                   <input
@@ -769,7 +769,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
             <div className="space-y-6">
               <h3 className="mb-4">文章設定</h3>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <label className="block mb-2">總字數</label>
                   <select className="w-full px-4 py-3 bg-input-background rounded-lg">
@@ -790,7 +790,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                   <label className="block mb-2">語氣</label>
                   <input
@@ -816,7 +816,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
 
               <div className="border border-border rounded-xl p-6">
                 <h4 className="mb-4">額外選項</h4>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {[
                     { label: '包含前言', icon: MessageSquare },
                     { label: '包含 FAQ', icon: MessageSquare },
@@ -892,8 +892,8 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
           )}
 
           {step === 5 && (
-            <div className="grid grid-cols-3 gap-6">
-              <div className="col-span-2 space-y-6">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              <div className="space-y-6 lg:col-span-2">
                 <div>
                   <label className="block mb-2">SEO 標題</label>
                   <input
@@ -933,7 +933,7 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
                   ))}
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
                   <button
                     type="button"
                     onClick={() => {
@@ -976,15 +976,9 @@ export function NewArticle(_props?: { onNavigate?: (page: string) => void }) {
                     <span>排程發布</span>
                   </button>
                 </div>
-                <button
-                  onClick={() => {
-                    setToast({ type: 'success', message: '文章已發布到 WordPress' });
-                  }}
-                  className="w-full bg-gradient-to-r from-brand to-brand-deep text-white rounded-xl py-4 px-6 flex items-center justify-center gap-2 hover:from-brand-deep hover:to-brand-strong transition-all"
-                >
-                  <Upload className="w-5 h-5" />
-                  <span>立即發布</span>
-                </button>
+                <p className="mt-4 border-t border-border pt-4 text-center text-sm text-muted-foreground">
+                  WordPress 一鍵發布尚在產品路線圖中；請先使用「複製 Markdown」或「匯出 HTML」。
+                </p>
               </div>
 
               <div>

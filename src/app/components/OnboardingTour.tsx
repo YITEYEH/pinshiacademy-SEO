@@ -30,9 +30,9 @@ export function OnboardingTour({ onClose }: OnboardingTourProps) {
       highlight: '🎯',
     },
     {
-      title: '直接發布到 WordPress',
-      description: '完成編輯後，一鍵發布到您的 WordPress 網站，省去複製貼上的麻煩。',
-      highlight: '🚀',
+      title: '匯出與交付',
+      description: '完成後可複製 Markdown 或下載 HTML，再貼到 CMS 或交給客戶；後續將再補 WordPress 等一鍵發布。',
+      highlight: '📤',
     },
   ];
 
@@ -40,7 +40,7 @@ export function OnboardingTour({ onClose }: OnboardingTourProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl">
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-4 shadow-2xl sm:p-8">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 hover:bg-accent rounded-lg transition-colors"

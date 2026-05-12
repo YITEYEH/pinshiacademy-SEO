@@ -150,7 +150,7 @@ export function TemplateManager(_props?: { onNavigate?: (page: string) => void }
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8 flex items-center justify-between gap-4 flex-wrap">
           <div>
@@ -230,7 +230,7 @@ export function TemplateManager(_props?: { onNavigate?: (page: string) => void }
                           </div>
                           <p className="text-sm text-muted-foreground mb-4">{template.description ?? '—'}</p>
 
-                          <div className="grid grid-cols-4 gap-4 text-sm">
+                          <div className="grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
                             <div>
                               <span className="text-muted-foreground">字數：</span>
                               <span className="font-medium">{wordCount}</span>
@@ -339,7 +339,7 @@ export function TemplateManager(_props?: { onNavigate?: (page: string) => void }
 
         <div className="mt-8 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-2xl p-6">
           <h3 className="mb-3">模板最佳實踐</h3>
-          <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
+          <div className="grid grid-cols-1 gap-4 text-sm text-muted-foreground sm:grid-cols-2">
             <div>
               <h4 className="text-foreground mb-2">模板設定建議</h4>
               <ul className="space-y-1">

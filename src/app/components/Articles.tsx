@@ -81,7 +81,7 @@ export function Articles(_props?: { onNavigate?: (page: string) => void }) {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="mb-8 flex items-center justify-between gap-4 flex-wrap">
         <div>
           <h1 className="mb-2">文章管理</h1>

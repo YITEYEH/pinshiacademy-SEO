@@ -1,5 +1,5 @@
-import { Search, LogOut, User } from 'lucide-react';
-import { useNavigate } from 'react-router';
+import { Menu, LogOut, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router';
 import { useAuth } from '@/app/auth/AuthProvider';
 
 interface TopbarProps {
@@ -7,9 +7,11 @@ interface TopbarProps {
   plan?: string;
   /** 本月 Edge / OpenAI complete 次數（來自 usage_logs） */
   llmUsageThisMonth?: number | null;
+  /** 小螢幕開啟側欄抽屜 */
+  onOpenMobileNav?: () => void;
 }
 
-export function Topbar({ pageTitle, plan = 'Free', llmUsageThisMonth = null }: TopbarProps) {
+export function Topbar({ pageTitle, plan = 'Free', llmUsageThisMonth = null, onOpenMobileNav }: TopbarProps) {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
@@ -21,20 +23,22 @@ export function Topbar({ pageTitle, plan = 'Free', llmUsageThisMonth = null }: T
   const email = user?.email ?? '';
 
   return (
-    <div className="h-16 bg-white border-b border-border px-8 flex items-center justify-between">
-      <h1 className="font-semibold text-foreground truncate">{pageTitle}</h1>
+    <div className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-border bg-white px-4 sm:px-6 lg:px-8">
+      <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+        {onOpenMobileNav ? (
+          <button
+            type="button"
+            className="inline-flex shrink-0 rounded-lg p-2 text-foreground hover:bg-accent lg:hidden"
+            aria-label="開啟選單"
+            onClick={onOpenMobileNav}
+          >
+            <Menu className="size-5" aria-hidden />
+          </button>
+        ) : null}
+        <h1 className="truncate font-semibold text-foreground">{pageTitle}</h1>
+      </div>
 
-      <div className="flex items-center gap-6">
-        <div className="relative hidden md:block">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="search"
-            placeholder="搜尋..."
-            autoComplete="off"
-            className="pl-10 pr-4 py-2 bg-muted rounded-lg text-sm w-64 focus:outline-none focus:ring-2 focus:ring-slate-400/25"
-          />
-        </div>
-
+      <div className="flex shrink-0 items-center gap-3 sm:gap-6">
         <div className="flex items-center gap-3">
           <div className="text-sm hidden sm:block text-right max-w-[200px]">
             <span className="text-muted-foreground block text-xs">帳號</span>
@@ -62,9 +66,14 @@ export function Topbar({ pageTitle, plan = 'Free', llmUsageThisMonth = null }: T
             <span className="hidden sm:inline">登出</span>
           </button>
 
-          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-brand-deep flex items-center justify-center shrink-0" aria-hidden>
-            <User className="w-5 h-5 text-white" />
-          </div>
+          <Link
+            to="/account"
+            className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-deep text-white ring-offset-background transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400/40 focus-visible:ring-offset-2"
+            title="帳號與整合"
+            aria-label="前往帳號與整合"
+          >
+            <User className="size-5" aria-hidden />
+          </Link>
         </div>
       </div>
     </div>

@@ -1,15 +1,24 @@
 import { Home, FileText, Search, Upload, Settings, Folder, User, PlusCircle, Calendar, BarChart3, Database, Code } from 'lucide-react';
+import { Link } from 'react-router';
 import { isComingSoonFeature } from '@/app/navigation';
+import { cn } from '@/app/components/ui/utils';
 
 interface SidebarProps {
   currentPage: string;
   onNavigate: (page: string) => void;
+  /** 選完路由後關閉（例如行動抽屜） */
+  onNavigateComplete?: () => void;
+  className?: string;
 }
 
-export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
+export function Sidebar({ currentPage, onNavigate, onNavigateComplete, className }: SidebarProps) {
+  const go = (id: string) => {
+    onNavigate(id);
+    onNavigateComplete?.();
+  };
   const menuItems = [
     { id: 'dashboard', icon: Home, label: 'Dashboard' },
-    { id: 'new-article', icon: PlusCircle, label: '新增文章', highlight: true },
+    { id: 'new-article', icon: PlusCircle, label: '新增文章' },
     { id: 'articles', icon: Folder, label: '文章管理' },
     { id: 'calendar', icon: Calendar, label: '內容日曆' },
     { id: 'analytics', icon: BarChart3, label: '分析報表' },
@@ -23,7 +32,12 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   ];
 
   return (
-    <div className="w-64 bg-white border-r border-border h-screen flex flex-col">
+    <div
+      className={cn(
+        'flex h-full min-h-0 w-64 shrink-0 flex-col overflow-y-auto border-r border-border bg-white lg:h-screen lg:max-h-none',
+        className,
+      )}
+    >
       <div className="p-6 border-b border-border">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-deep flex items-center justify-center">
@@ -40,12 +54,12 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
         {menuItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => onNavigate(item.id)}
+            onClick={() => go(item.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
               currentPage === item.id
                 ? 'bg-gradient-to-r from-brand-soft-from to-brand-soft-to text-brand-deep'
                 : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-            } ${item.highlight ? 'ring-2 ring-slate-400/20' : ''}`}
+            }`}
           >
             <item.icon className="w-5 h-5 shrink-0" />
             <span className="font-medium flex-1 text-left">{item.label}</span>
@@ -58,14 +72,13 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-border">
-        <div className="bg-gradient-to-br from-brand to-brand-deep rounded-xl p-4 text-white">
-          <p className="text-sm font-medium mb-1">升級至 Pro</p>
-          <p className="text-xs opacity-90 mb-3">解鎖無限文章生成</p>
-          <button className="w-full bg-white text-brand-link rounded-lg py-2 text-sm font-medium hover:bg-slate-50 transition-colors">
-            立即升級
-          </button>
-        </div>
+      <div className="border-t border-border p-4">
+        <Link
+          to="/pricing"
+          className="block rounded-lg border border-border bg-white px-4 py-3 text-center text-sm font-medium text-foreground transition-colors hover:border-brand-deep hover:bg-accent/50"
+        >
+          查看方案與價格
+        </Link>
       </div>
     </div>
   );

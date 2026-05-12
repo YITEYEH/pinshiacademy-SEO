@@ -18,7 +18,7 @@ export function CompetitorAnalysis() {
         <h3 className="mb-0">競爭對手分析</h3>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="bg-white rounded-xl p-4 border border-slate-200">
           <div className="flex items-center gap-2 mb-2">
             <FileText className="w-4 h-4 text-slate-600" />

@@ -40,14 +40,11 @@ export function Dashboard({ onNavigate }: DashboardProps) {
   const articleCount = articles.length;
 
   const stats = [
-    { label: '文章總數（草稿+已發）', value: String(articleCount), icon: FileText, color: 'blue' },
-    { label: '關鍵字分析次數', value: '—', icon: Search, color: 'purple' },
-    { label: 'WordPress 發布數', value: '—', icon: Upload, color: 'green' },
+    { label: '文章總數（草稿+已發）', value: String(articleCount), icon: FileText },
     {
       label: '本月 AI 完成',
       value: llmMonth === null ? '—' : `${llmMonth} 次`,
       icon: Zap,
-      color: 'orange',
     },
   ];
 
@@ -59,23 +56,19 @@ export function Dashboard({ onNavigate }: DashboardProps) {
     status: a.status,
   }));
 
-  const colorClasses = {
-    blue: 'from-slate-600 to-slate-700',
-    purple: 'from-slate-600 to-slate-700',
-    green: 'from-green-500 to-green-600',
-    orange: 'from-orange-500 to-orange-600',
-  };
+  const statIconShell =
+    'w-12 h-12 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center';
 
   return (
-    <div className="p-8 space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 p-4 sm:p-6 lg:p-8 sm:space-y-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="mb-2">歡迎使用 SEO產生器</h1>
           <p className="text-muted-foreground">透過 AI 快速生成高品質 SEO 內容</p>
         </div>
         <button
           onClick={() => setShowTour(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-border rounded-lg hover:border-brand-deep transition-all"
+          className="flex shrink-0 items-center gap-2 self-start rounded-lg border border-border bg-white px-4 py-2 transition-all hover:border-brand-deep"
         >
           <HelpCircle className="w-5 h-5 text-brand-link" />
           <span>新手教學</span>
@@ -90,14 +83,14 @@ export function Dashboard({ onNavigate }: DashboardProps) {
         <span className="font-semibold">新增 SEO 文章</span>
       </button>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
         {stats.map((stat, index) => (
           <div key={index} className="bg-white rounded-2xl p-6 border border-border shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorClasses[stat.color as keyof typeof colorClasses]} flex items-center justify-center`}>
+              <div className={statIconShell}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
-              <TrendingUp className="w-5 h-5 text-green-500" />
+              <TrendingUp className="w-5 h-5 text-muted-foreground" />
             </div>
             <div className="text-3xl font-semibold mb-1">{stat.value}</div>
             <div className="text-sm text-muted-foreground">{stat.label}</div>
@@ -105,8 +98,8 @@ export function Dashboard({ onNavigate }: DashboardProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 bg-white rounded-2xl p-6 border border-border">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="bg-white rounded-2xl p-4 border border-border sm:p-6 lg:col-span-2">
           <div className="flex items-center justify-between mb-6">
             <h2>最近文章</h2>
             <button
@@ -133,13 +126,13 @@ export function Dashboard({ onNavigate }: DashboardProps) {
                     navigate(`/new-article?draft=${encodeURIComponent(article.id)}`);
                   }
                 }}
-                className="flex items-center justify-between p-4 rounded-xl hover:bg-accent transition-colors cursor-pointer"
+                className="flex flex-col gap-3 rounded-xl p-4 transition-colors hover:bg-accent cursor-pointer sm:flex-row sm:items-center sm:justify-between"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center shrink-0">
                     <FileText className="w-5 h-5 text-brand-link" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h4>{article.title}</h4>
                     <div className="flex items-center gap-3 mt-1">
                       <span className="text-sm text-muted-foreground flex items-center gap-1">
@@ -205,15 +198,16 @@ export function Dashboard({ onNavigate }: DashboardProps) {
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-orange-600 mt-1" />
               <div>
-                <h4 className="text-orange-900 mb-1">尚未連接 WordPress</h4>
-                <p className="text-sm text-orange-700 mb-3">
-                  連接您的 WordPress 網站以直接發布文章
+                <h4 className="mb-1 text-orange-900">WordPress 串接</h4>
+                <p className="mb-3 text-sm text-orange-700">
+                  一鍵發布尚在開發中；目前請使用文章頁的「複製 Markdown」或「匯出 HTML」。
                 </p>
                 <button
+                  type="button"
                   onClick={() => onNavigate('wordpress')}
-                  className="text-sm text-orange-600 font-medium hover:text-orange-700"
+                  className="text-sm font-medium text-orange-600 hover:text-orange-700"
                 >
-                  立即設定 →
+                  查看規劃說明 →
                 </button>
               </div>
             </div>

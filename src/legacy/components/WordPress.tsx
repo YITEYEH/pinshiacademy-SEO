@@ -9,7 +9,7 @@ export function WordPress(_props?: { onNavigate?: (page: string) => void }) {
   ];
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="mb-2">WordPress 串接</h1>
@@ -80,7 +80,7 @@ export function WordPress(_props?: { onNavigate?: (page: string) => void }) {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
                 <label className="block mb-2">預設分類</label>
                 <select className="w-full px-4 py-3 bg-input-background rounded-lg">

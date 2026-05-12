@@ -224,7 +224,7 @@ add_filter('the_content', 'add_tracking_to_cta');
 ?>`;
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="max-w-5xl mx-auto">
         <div className="mb-8">
           <h1 className="mb-2">追蹤代碼設定</h1>
@@ -250,7 +250,7 @@ add_filter('the_content', 'add_tracking_to_cta');
         {/* 參數設定 */}
         <div className="bg-white rounded-2xl p-8 border border-border mb-8">
           <h2 className="mb-6">追蹤參數設定</h2>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div>
               <label className="block mb-2">文章 ID</label>
               <input
@@ -470,7 +470,7 @@ add_filter('the_content', 'add_tracking_to_cta');
         {/* 數據查看說明 */}
         <div className="mt-8 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-2xl p-6">
           <h3 className="mb-4">📊 如何查看追蹤數據？</h3>
-          <div className="grid grid-cols-2 gap-6 text-sm">
+          <div className="grid grid-cols-1 gap-6 text-sm md:grid-cols-2">
             <div>
               <h4 className="mb-2">在 Google Analytics 查看：</h4>
               <ol className="space-y-1 text-green-800 list-decimal list-inside">

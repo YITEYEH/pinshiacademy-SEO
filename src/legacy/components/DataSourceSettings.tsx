@@ -37,7 +37,7 @@ export function DataSourceSettings(_props?: { onNavigate?: (page: string) => voi
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="mb-2">數據源設定</h1>

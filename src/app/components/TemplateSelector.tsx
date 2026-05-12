@@ -141,7 +141,7 @@ export function TemplateSelector({ value, onChange }: TemplateSelectorProps) {
       <p className="text-xs text-muted-foreground mb-3">
         {source === 'db' ? '以下為你在「模板管理」中的寫作模板；若無法連線則顯示內建選項。' : '目前使用內建版型代碼（未連線或尚無雲端模板時）。'}
       </p>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {source === 'static'
           ? STATIC_CARDS.map((template) => {
               const colors = colorClasses[template.color];

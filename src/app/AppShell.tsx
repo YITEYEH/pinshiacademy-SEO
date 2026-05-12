@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { Sidebar } from '@/app/components/Sidebar';
 import { Topbar } from '@/app/components/Topbar';
+import { Sheet, SheetContent } from '@/app/components/ui/sheet';
 import { PAGE_TITLES, pageIdToPath, pathToPageId } from '@/app/navigation';
 import { getSupabase } from '@/lib/supabase';
 import { getMyProfile } from '@/lib/profilesRepo';
@@ -15,6 +16,7 @@ export function AppShell() {
   const onNavigate = (id: string) => navigate(pageIdToPath(id));
   const [planLabel, setPlanLabel] = useState<string>('Free');
   const [llmThisMonth, setLlmThisMonth] = useState<number | null>(null);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     if (!getSupabase()) return;
@@ -32,11 +34,28 @@ export function AppShell() {
   }, [location.pathname]);
 
   return (
-    <div className="size-full flex bg-muted/30">
-      <Sidebar currentPage={currentPage} onNavigate={onNavigate} />
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
-        <Topbar pageTitle={title} plan={planLabel} llmUsageThisMonth={llmThisMonth} />
-        <div className="flex-1 overflow-y-auto">
+    <div className="flex size-full min-h-0 bg-muted/30">
+      <div className="hidden shrink-0 lg:block">
+        <Sidebar currentPage={currentPage} onNavigate={onNavigate} />
+      </div>
+      <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+        <SheetContent side="left" className="w-[min(20rem,88vw)] gap-0 border-r p-0 sm:max-w-xs">
+          <Sidebar
+            currentPage={currentPage}
+            onNavigate={onNavigate}
+            onNavigateComplete={() => setMobileNavOpen(false)}
+            className="h-full w-full max-w-none border-0"
+          />
+        </SheetContent>
+      </Sheet>
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        <Topbar
+          pageTitle={title}
+          plan={planLabel}
+          llmUsageThisMonth={llmThisMonth}
+          onOpenMobileNav={() => setMobileNavOpen(true)}
+        />
+        <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
           <Outlet />
         </div>
       </div>

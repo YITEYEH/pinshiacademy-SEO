@@ -93,14 +93,14 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
   // 未連接數據源時顯示
   if (!isConnected) {
     return (
-      <div className="p-8">
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="mb-8">
           <h1 className="mb-2">分析報表</h1>
           <p className="text-muted-foreground">追蹤文章表現、關鍵字排名與轉換數據</p>
         </div>
 
-        <div className="max-w-3xl mx-auto mt-20">
-          <div className="bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-300 rounded-2xl p-12 text-center">
+        <div className="max-w-3xl mx-auto mt-10 sm:mt-20">
+          <div className="rounded-2xl border-2 border-orange-300 bg-gradient-to-br from-orange-50 to-orange-100 p-6 text-center sm:p-10 lg:p-12">
             <div className="w-20 h-20 rounded-full bg-orange-200 flex items-center justify-center mx-auto mb-6">
               <AlertCircle className="w-10 h-10 text-orange-600" />
             </div>
@@ -109,7 +109,7 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
               要查看真實的流量、排名與轉換數據，請先連接 Google Analytics 和 Search Console
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-8 max-w-lg mx-auto">
+            <div className="mx-auto mb-8 grid max-w-lg grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="bg-white rounded-xl p-4 border border-orange-200">
                 <BarChart3 className="w-8 h-8 text-brand-link mx-auto mb-2" />
                 <h4 className="mb-1">Google Analytics 4</h4>
@@ -146,13 +146,13 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
   }
 
   return (
-    <div className="p-8">
-      <div className="mb-8 flex items-center justify-between">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <h1 className="mb-2">分析報表</h1>
           <p className="text-muted-foreground">追蹤文章表現、關鍵字排名與轉換數據</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           <button
             onClick={() => onNavigate('data-sources')}
             className="px-4 py-2 bg-white border border-border rounded-lg hover:border-brand-deep transition-all flex items-center gap-2"
@@ -177,9 +177,9 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
       </div>
 
       {/* 示範數據提示 */}
-      <div className="mb-6 p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <AlertCircle className="w-5 h-5 text-brand-link" />
+      <div className="mb-6 flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3 sm:items-center">
+          <AlertCircle className="mt-0.5 size-5 shrink-0 text-brand-link sm:mt-0" />
           <p className="text-sm text-slate-800">
             目前顯示示範數據。連接真實數據源後將顯示實際分析結果。
           </p>
@@ -193,7 +193,7 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
       </div>
 
       {/* 統計卡片 */}
-      <div className="grid grid-cols-4 gap-6 mb-8">
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
         {stats.map((stat, index) => (
           <div key={index} className="bg-white rounded-2xl p-6 border border-border">
             <div className="flex items-center justify-between mb-4">
@@ -212,8 +212,8 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
       </div>
 
       {/* 流量趨勢圖 */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
-        <div className="col-span-2 bg-white rounded-2xl p-6 border border-border">
+      <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6 lg:col-span-2">
           <div className="flex items-center justify-between mb-6">
             <h2>流量趨勢</h2>
             <div className="flex gap-4 text-sm">
@@ -245,7 +245,7 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
         </div>
 
         {/* 流量來源 */}
-        <div className="bg-white rounded-2xl p-6 border border-border">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6">
           <h2 className="mb-6">流量來源</h2>
           <ResponsiveContainer width="100%" height={200}>
             <RechartsPieChart>
@@ -279,15 +279,15 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
       </div>
 
       {/* 關鍵字排名監控 */}
-      <div className="bg-white rounded-2xl p-6 border border-border mb-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="mb-8 rounded-2xl border border-border bg-white p-4 sm:p-6">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2>關鍵字排名監控</h2>
-          <button className="px-4 py-2 bg-accent rounded-lg text-sm hover:bg-accent/80">
+          <button className="rounded-lg bg-accent px-4 py-2 text-sm hover:bg-accent/80 sm:self-auto">
             更新排名
           </button>
         </div>
-        <div className="overflow-hidden border border-border rounded-xl">
-          <table className="w-full">
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full min-w-[640px]">
             <thead className="bg-muted">
               <tr>
                 <th className="text-left p-4 text-sm font-medium">關鍵字</th>
@@ -347,19 +347,19 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
       </div>
 
       {/* 文章表現 & 轉換漏斗 */}
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 bg-white rounded-2xl p-6 border border-border">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6 lg:col-span-2">
           <h2 className="mb-6">文章表現排行</h2>
           <div className="space-y-4">
             {articlePerformance.map((article, index) => (
               <div key={index} className="p-4 border border-border rounded-xl hover:border-slate-300 transition-colors">
-                <div className="flex items-center justify-between mb-3">
-                  <h4>{article.title}</h4>
+                <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <h4 className="min-w-0">{article.title}</h4>
                   <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
                     ROI {article.roi}x
                   </span>
                 </div>
-                <div className="grid grid-cols-4 gap-4 text-sm">
+                <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4 sm:gap-4">
                   <div>
                     <p className="text-muted-foreground mb-1">瀏覽量</p>
                     <p className="text-xl font-semibold">{article.views.toLocaleString()}</p>
@@ -383,7 +383,7 @@ export function Analytics({ onNavigate }: AnalyticsProps) {
         </div>
 
         {/* 轉換漏斗 */}
-        <div className="bg-white rounded-2xl p-6 border border-border">
+        <div className="rounded-2xl border border-border bg-white p-4 sm:p-6">
           <h2 className="mb-6">轉換漏斗</h2>
           <div className="space-y-4">
             {conversionFunnel.map((stage, index) => (

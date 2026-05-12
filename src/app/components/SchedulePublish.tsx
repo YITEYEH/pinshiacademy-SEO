@@ -31,14 +31,14 @@ export function SchedulePublish({ onSchedule, onClose }: SchedulePublishProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-4 shadow-2xl sm:p-8">
         <h2 className="mb-6">排程發布設定</h2>
 
         <div className="space-y-6">
           {/* 發布類型 */}
           <div>
             <label className="block mb-3">發布方式</label>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <button
                 onClick={() => setPublishType('now')}
                 className={`p-4 rounded-xl border-2 transition-all text-left ${
@@ -82,7 +82,7 @@ export function SchedulePublish({ onSchedule, onClose }: SchedulePublishProps) {
 
           {/* 日期時間設定 */}
           {publishType !== 'now' && (
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
                 <label className="block mb-2">發布日期</label>
                 <div className="relative">
