@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { Fragment } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BadgeCheck, LayoutGrid, Sparkles, Target } from 'lucide-react';
 import { Link } from 'react-router';
 import { cn } from '@/app/components/ui/utils';
 import { MarketingLayout } from '@/app/marketing/components/MarketingLayout';
@@ -50,41 +50,22 @@ function SectionBackdrop(props: { variant?: 'light' | 'muted' }) {
 
 type FeatureIcon = 'layout' | 'sparkles' | 'badge' | 'target';
 
+const capabilityIcons = {
+  layout: LayoutGrid,
+  sparkles: Sparkles,
+  badge: BadgeCheck,
+  target: Target,
+} as const satisfies Record<FeatureIcon, ComponentType<{ className?: string }>>;
+
+/** 與 `/features` 能力速覽區塊同一套 Lucide 圖示，避免首頁用抽象幾何造成四格風格不一致 */
 function FeatureIconMark(props: { name: FeatureIcon }) {
-  const shell =
-    'inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-white to-zinc-100 p-[1px] shadow-[0_10px_30px_-18px_rgba(24,24,27,0.55)] ring-1 ring-black/[0.04]';
-  const inner =
-    'flex size-full items-center justify-center rounded-[15px] border border-zinc-200/80 bg-white/90';
-  const mark = 'h-4 w-4 rounded-sm bg-gradient-to-br from-zinc-900 to-zinc-700';
-  if (props.name === 'sparkles')
-    return (
-      <span className={shell} aria-hidden>
-        <span className={inner}>
-          <span className={`${mark} rotate-12`} />
-        </span>
-      </span>
-    );
-  if (props.name === 'badge')
-    return (
-      <span className={shell} aria-hidden>
-        <span className={inner}>
-          <span className={`${mark} rounded-full`} />
-        </span>
-      </span>
-    );
-  if (props.name === 'target')
-    return (
-      <span className={shell} aria-hidden>
-        <span className={inner}>
-          <span className={`${mark} bg-gradient-to-br from-emerald-600 to-emerald-800 ring-4 ring-emerald-600/15`} />
-        </span>
-      </span>
-    );
+  const Icon = capabilityIcons[props.name];
   return (
-    <span className={shell} aria-hidden>
-      <span className={inner}>
-        <span className={mark} />
-      </span>
+    <span
+      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-zinc-200/80 bg-gradient-to-br from-white to-zinc-50 text-emerald-800 shadow-sm"
+      aria-hidden
+    >
+      <Icon className="size-5" strokeWidth={2} />
     </span>
   );
 }
@@ -284,7 +265,7 @@ export function LandingPage() {
                 key={f.title}
                 className="group flex gap-4 rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-sm ring-1 ring-black/[0.03] transition hover:border-emerald-200/70 hover:shadow-[0_20px_50px_-38px_rgba(16,185,129,0.18)] sm:gap-5 sm:p-7"
               >
-                <FeatureIconMark name={f.icon as FeatureIcon} />
+                <FeatureIconMark name={f.icon} />
                 <div className="min-w-0">
                   <h3 className="text-base font-semibold tracking-tight leading-snug">{f.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-zinc-600">{f.description}</p>
